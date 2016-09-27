@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.yihaomen.mybatis.inter.IUserOperation">
+
+	<resultMap id="resultListUser" type="User">
+		<id column="id" property="id" />
+		<result column="userName" property="userName" />
+		<result column="userAge" property="userAge" />
+		<result column="userAddress" property="userAddress" />
+	</resultMap>
+
+
+	<select id="selectUserByID" parameterType="int" resultType="User">
+		select * from `o_myuser` where id = #{id}
+	</select>
+
+	<select id="selectUsers" parameterType="String" resultMap="resultListUser">
+		select * from `o_myuser` where userName like
+		<!-- CONCAT('%',#{userName},'%' ) -->
+		#{userName}
+	</select>
+
+	<insert id="addUser" parameterType="User" useGeneratedKeys="true"
+		keyProperty="id">
+		INSERT INTO o_myuser (id, userName, userAge, userAddress)
+		VALUES ( #{id}, #{userName}, #{userAge}, #{userAddress})
+	</insert>
+
+</mapper>
