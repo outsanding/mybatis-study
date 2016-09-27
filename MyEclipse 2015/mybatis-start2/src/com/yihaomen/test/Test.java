@@ -10,6 +10,7 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import com.yihaomen.mybatis.inter.IUserOperation;
+import com.yihaomen.mybatis.model.Article;
 import com.yihaomen.mybatis.model.User;
 
 public class Test {
@@ -32,46 +33,46 @@ public class Test {
 		SqlSession session = sqlSessionFactory.openSession();
 		User user = (User)session.selectOne("com.yihaomen.mybatis.models.User.selectUserByID",1);
 		if(user != null){
-			String userInfo = "Ãû×Ö£º" + user.getUserName() + ", µØÖ·£º"
-					+ user.getUserAddress() + ", Äêıg£º" + user.getUserAge();
+			String userInfo = "åå­—ï¼š" + user.getUserName() + ", åœ°å€ï¼š"
+					+ user.getUserAddress() + ", å¹´é½¡ï¼š" + user.getUserAge();
 			System.out.println(userInfo);
 		}
 	}
 	
 	
 	public static void main2(String[] args) throws IOException {
-		//mybatisµÄÅäÖÃÎÄ¼ş
+		//mybatisçš„é…ç½®æ–‡ä»¶
 		String resource = "config/conf.xml";
 		
 		
-		//Ê¹ÓÃÀà¼ÓÔØÆ÷¼ÓÔØmybatisµÄÅäÖÃÎÄ¼ş£¨ËüÒ²¼ÓÔØ¹ØÁªµÄÓ³ÉäÎÄ¼ş£©
+		//ä½¿ç”¨ç±»åŠ è½½å™¨åŠ è½½mybatisçš„é…ç½®æ–‡ä»¶ï¼ˆå®ƒä¹ŸåŠ è½½å…³è”çš„æ˜ å°„æ–‡ä»¶ï¼‰
 //		InputStream is = Test.class.getClassLoader().getResourceAsStream(resource);
-		//¹¹½¨sqlSessionµÄ¹¤³§
+		//æ„å»ºsqlSessionçš„å·¥å‚
 //		SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(is);
 		
 		
 		
-        //Ê¹ÓÃMyBatisÌá¹©µÄResourcesÀà¼ÓÔØmybatisµÄÅäÖÃÎÄ¼ş£¨ËüÒ²¼ÓÔØ¹ØÁªµÄÓ³ÉäÎÄ¼ş£©
+        //ä½¿ç”¨MyBatisæä¾›çš„Resourcesç±»åŠ è½½mybatisçš„é…ç½®æ–‡ä»¶ï¼ˆå®ƒä¹ŸåŠ è½½å…³è”çš„æ˜ å°„æ–‡ä»¶ï¼‰
 		Reader reader = Resources.getResourceAsReader(resource);
-		//¹¹½¨sqlSessionµÄ¹¤³§
+		//æ„å»ºsqlSessionçš„å·¥å‚
 		SqlSessionFactory sessionFactory = new SqlSessionFactoryBuilder().build(reader);
 		
 		
 		
-		//´´½¨ÄÜÖ´ĞĞÓ³ÉäÎÄ¼şÖĞµÄsqlµÄSQLSession
+		//åˆ›å»ºèƒ½æ‰§è¡Œæ˜ å°„æ–‡ä»¶ä¸­çš„sqlçš„SQLSession
 		SqlSession session = sessionFactory.openSession();
 		
 		/**
-         * Ó³ÉäsqlµÄ±êÊ¶×Ö·û´®£¬
-         * me.gacl.mapping.userMapperÊÇuserMapper.xmlÎÄ¼şÖĞmapper±êÇ©µÄnamespaceÊôĞÔµÄÖµ£¬
-         * getUserÊÇselect±êÇ©µÄidÊôĞÔÖµ£¬Í¨¹ıselect±êÇ©µÄidÊôĞÔÖµ¾Í¿ÉÒÔÕÒµ½ÒªÖ´ĞĞµÄSQL
+         * æ˜ å°„sqlçš„æ ‡è¯†å­—ç¬¦ä¸²ï¼Œ
+         * me.gacl.mapping.userMapperæ˜¯userMapper.xmlæ–‡ä»¶ä¸­mapperæ ‡ç­¾çš„namespaceå±æ€§çš„å€¼ï¼Œ
+         * getUseræ˜¯selectæ ‡ç­¾çš„idå±æ€§å€¼ï¼Œé€šè¿‡selectæ ‡ç­¾çš„idå±æ€§å€¼å°±å¯ä»¥æ‰¾åˆ°è¦æ‰§è¡Œçš„SQL
          */
 		
-		String statement = "com.yihaomen.mybatis.models.User.selectUserByID";//Ó³ÉäsqlµÄ±êÊ¶×Ö·û´®
+		String statement = "com.yihaomen.mybatis.models.User.selectUserByID";//æ˜ å°„sqlçš„æ ‡è¯†å­—ç¬¦ä¸²
 		User user = session.selectOne(statement,1);
 		if(user != null){
-			String userInfo = "Ãû×Ö£º" + user.getUserName() + ", µØÖ·£º"
-					+ user.getUserAddress() + ", Äêıg£º" + user.getUserAge();
+			String userInfo = "åå­—ï¼š" + user.getUserName() + ", åœ°å€ï¼š"
+					+ user.getUserAddress() + ", å¹´é½¡ï¼š" + user.getUserAge();
 			System.out.println(userInfo);
 		}
 	}
@@ -83,8 +84,8 @@ public class Test {
 		User user = userOperation.selectUserByID(1);
 		
 		if(user != null){
-			String userInfo = "Ãû×Ö£º" + user.getUserName() + ", µØÖ·£º"
-					+ user.getUserAddress() + ", Äêıg£º" + user.getUserAge();
+			String userInfo = "åå­—ï¼š" + user.getUserName() + ", åœ°å€ï¼š"
+					+ user.getUserAddress() + ", å¹´é½¡ï¼š" + user.getUserAge();
 			System.out.println(userInfo);
 		}
 	}
@@ -99,8 +100,8 @@ public class Test {
 			for(User user : list){
 				
 				if(user != null){
-					String userInfo = "Ãû×Ö£º" + user.getUserName() + ", µØÖ·£º"
-							+ user.getUserAddress() + ", Äêıg£º" + user.getUserAge();
+					String userInfo = "åå­—ï¼š" + user.getUserName() + ", åœ°å€ï¼š"
+							+ user.getUserAddress() + ", å¹´é½¡ï¼š" + user.getUserAge();
 					System.out.println(userInfo);
 				}
 			}
@@ -111,15 +112,77 @@ public class Test {
 		}
 	}
 	
-	public static void main(String[] args) {
+	public static void main5(String[] args) {
 		SqlSession session = sqlSessionFactory.openSession();
 		User user = new User("songll","111","shandong zhongguo");
-		
+		/**
+	     * æµ‹è¯•å¢åŠ ,å¢åŠ åï¼Œå¿…é¡»æäº¤äº‹åŠ¡ï¼Œå¦åˆ™ä¸ä¼šå†™å…¥åˆ°æ•°æ®åº“.
+	     */
 		try {
 			IUserOperation userOperation = session.getMapper(IUserOperation.class);
 			userOperation.addUser(user);
 			session.commit();
-			System.out.println("µ±Ç°Ôö¼ÓµÄÓÃ»§ idÎª:"+user.getId());
+			System.out.println("å½“å‰å¢åŠ çš„ç”¨æˆ· idä¸º:"+user.getId());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+	}
+	
+	public static void main6(String[] args) {
+		SqlSession session = sqlSessionFactory.openSession();
+		/**
+		 * å…ˆå¾—åˆ°ç”¨æˆ·,ç„¶åä¿®æ”¹ï¼Œæäº¤ã€‚
+		 */
+		try {
+			IUserOperation userOperation = session.getMapper(IUserOperation.class);
+			User user = userOperation.selectUserByID(5);
+			user.setUserAddress("åŸæ¥æ˜¯é­”éƒ½çš„æµ¦ä¸œåˆ›æ–°å›­åŒº");
+			userOperation.updateUser(user);
+			session.commit();
+			System.out.println("å½“ç”¨æˆ· UserAddressä¸º:"+user.getUserAddress());
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+	}
+	
+	public static void main7(String[] args) {
+		SqlSession session = sqlSessionFactory.openSession();
+		/**
+		 * åˆ é™¤æ•°æ®ï¼Œåˆ é™¤ä¸€å®šè¦ commit.
+		 */
+		try {
+			IUserOperation userOperation = session.getMapper(IUserOperation.class);
+			User user = userOperation.selectUserByID(5);
+			userOperation.deleteUser(user);
+			session.commit();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally{
+			session.close();
+		}
+	}
+	
+	public static void main(String[] args) {
+		SqlSession session = sqlSessionFactory.openSession();
+		/**
+		 * åˆ é™¤æ•°æ®ï¼Œåˆ é™¤ä¸€å®šè¦ commit.
+		 */
+		try {
+			IUserOperation userOperation = session.getMapper(IUserOperation.class);
+			List<Article> list = userOperation.getUserArticles(1);
+			
+			for(Article article : list){
+				User user = article.getUser();
+				if(user != null){
+					String userInfo = "åå­—ï¼š" + user.getUserName() + ", åœ°å€ï¼š"
+							+ user.getUserAddress() + ", å¹´é½¡ï¼š" + user.getUserAge();
+					System.out.println(userInfo);
+				}
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally{

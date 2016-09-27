@@ -12,6 +12,13 @@ public class User {
 		super();
 	}
 
+    
+	public User(int id) {
+		super();
+		this.id = id;
+	}
+
+
 	public User(String userName, String userAge, String userAddress) {
 		super();
 		this.userName = userName;

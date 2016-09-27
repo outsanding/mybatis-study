@@ -11,6 +11,27 @@
 		<result column="userAddress" property="userAddress" />
 	</resultMap>
 
+	<!-- User 联合文章进行查询 方法之一的配置 (多对一的方式) -->
+	<resultMap id="resultUserArticleList" type="com.yihaomen.mybatis.model.Article">
+		<id column="id" property="id" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+
+		<association property="user" javaType="User">
+			<id column="id" property="id" />
+			<result column="userName" property="userName" />
+			<result column="userAge" property="userAge" />
+			<result column="userAddress" property="userAddress" />
+		</association>
+	</resultMap>
+
+	<select id="getUserArticles" parameterType="int"
+		resultMap="resultUserArticleList">
+		select user.id,user.userName,user.userAddress,article.id
+		aid,article.title,article.content from o_myuser user,article
+		where user.id=article.userid and user.id=#{id}
+		
+	</select>
 
 	<select id="selectUserByID" parameterType="int" resultType="User">
 		select * from `o_myuser` where id = #{id}
@@ -27,5 +48,20 @@
 		INSERT INTO o_myuser (id, userName, userAge, userAddress)
 		VALUES ( #{id}, #{userName}, #{userAge}, #{userAddress})
 	</insert>
+
+	<update id="updateUser" parameterType="User">
+		update o_myuser
+		set
+		userName=#{userName},
+		userAge=#{userAge},
+		userAddress=#{userAddress}
+		where id=#{id}
+	</update>
+
+	<delete id="deleteUser" parameterType="User">
+		delete from o_myuser
+		where
+		id=#{id}
+	</delete>
 
 </mapper>
