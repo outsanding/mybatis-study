@@ -17,5 +17,14 @@ public interface IUserOperation {
 	
 	public void deleteUser(User user);
 	
-	public List<Article> getUserArticles(int id);
+	public List<Article> getArticles(int userId);
+	
+	public User getUserArticles(int id);
+	
+//	public List<Article> getUserArticles3();
+//	
+//	public List<Article> getUserArticles2(int id);
+	
+	
+	
 }

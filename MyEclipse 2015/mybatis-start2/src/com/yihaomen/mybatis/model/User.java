@@ -1,12 +1,14 @@
 package com.yihaomen.mybatis.model;
 
+import java.util.List;
+
 public class User {
     
     private int id;
     private String userName;
     private String userAge;
     private String userAddress;
-    
+    private List<Article> articles;
     
     public User() {
 		super();
@@ -26,6 +28,17 @@ public class User {
 		this.userAddress = userAddress;
 	}
     
+	
+	public List<Article> getArticles() {
+		return articles;
+	}
+
+
+	public void setArticles(List<Article> articles) {
+		this.articles = articles;
+	}
+
+
 	public int getId() {
         return id;
     }

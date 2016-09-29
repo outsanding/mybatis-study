@@ -114,7 +114,7 @@ public class Test {
 	
 	public static void main5(String[] args) {
 		SqlSession session = sqlSessionFactory.openSession();
-		User user = new User("songll","111","shandong zhongguo");
+		User user = new User("songll",null,"shandong zhongguo");
 		/**
 	     * 测试增加,增加后，必须提交事务，否则不会写入到数据库.
 	     */
@@ -168,19 +168,21 @@ public class Test {
 	
 	public static void main(String[] args) {
 		SqlSession session = sqlSessionFactory.openSession();
-		/**
-		 * 删除数据，删除一定要 commit.
-		 */
 		try {
 			IUserOperation userOperation = session.getMapper(IUserOperation.class);
-			List<Article> list = userOperation.getUserArticles(1);
-			
-			for(Article article : list){
-				User user = article.getUser();
-				if(user != null){
-					String userInfo = "名字：" + user.getUserName() + ", 地址："
-							+ user.getUserAddress() + ", 年齡：" + user.getUserAge();
-					System.out.println(userInfo);
+			User user = userOperation.getUserArticles(4);
+			if (user!=null) {
+				List<Article> list = user.getArticles();
+				//			List<Article> list = userOperation.getUserArticles2(3);
+				//			List<Article> list = userOperation.getUserArticles3();
+				System.out.println("list.size：" + list.size());
+				for (Article article : list) {
+					if (article != null) {
+						String userInfo = article.getTitle() + ":"
+								+ article.getContent() + ":作者是:"
+								+ article.getUserId();
+						System.out.println(userInfo);
+					}
 				}
 			}
 		} catch (Exception e) {

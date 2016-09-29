@@ -4,34 +4,98 @@
 
 <mapper namespace="com.yihaomen.mybatis.inter.IUserOperation">
 
-	<resultMap id="resultListUser" type="User">
+	<resultMap id="resultListUser" type="com.yihaomen.mybatis.model.User">
 		<id column="id" property="id" />
 		<result column="userName" property="userName" />
 		<result column="userAge" property="userAge" />
 		<result column="userAddress" property="userAddress" />
 	</resultMap>
 
-	<!-- User 联合文章进行查询 方法之一的配置 (多对一的方式) -->
-	<resultMap id="resultUserArticleList" type="com.yihaomen.mybatis.model.Article">
-		<id column="id" property="id" />
+	<resultMap id="resultListArticle" type="com.yihaomen.mybatis.model.Article">
+		<id column="aid" property="id" />
+		<result column="userid" property="userId"/>
 		<result column="title" property="title" />
 		<result column="content" property="content" />
-
-		<association property="user" javaType="User">
+	</resultMap>
+	
+	<!-- User 联合文章进行查询 方法之二的配置 (一对多的方式) -->
+	<resultMap id="resultUserArticleList" type="com.yihaomen.mybatis.model.User">
+		<id column="id" property="id" />
+		<result column="userName" property="userName" />
+		<result column="userAge" property="userAge" />
+		<result column="userAddress" property="userAddress" />
+		
+		<collection property="articles" column="aid" javaType="java.util.ArrayList" select="getArticles"/>
+	</resultMap>
+	
+	<!-- User 联合文章进行查询 方法之一的配置 (一对一的方式) 
+	<resultMap id="resultUserArticleList111" type="com.yihaomen.mybatis.model.Article">
+		<id column="id" property="aid" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		
+		<association property="user" column="{id=userid}" javaType="com.yihaomen.mybatis.model.User">
 			<id column="id" property="id" />
 			<result column="userName" property="userName" />
 			<result column="userAge" property="userAge" />
 			<result column="userAddress" property="userAddress" />
 		</association>
 	</resultMap>
+	-->
 
+	<!-- User 联合文章进行查询 方法之二的配置 (一对一的方式) 
+	<resultMap id="resultUserArticleList2" type="com.yihaomen.mybatis.model.Article">
+		<id column="id" property="aid" />
+		<result column="title" property="title" />
+		<result column="content" property="content" />
+		<association property="user" column="userid" javaType="User" resultMap="resultListUser" />
+	</resultMap>
+	-->
+
+	
 	<select id="getUserArticles" parameterType="int"
 		resultMap="resultUserArticleList">
-		select user.id,user.userName,user.userAddress,article.id
-		aid,article.title,article.content from o_myuser user,article
-		where user.id=article.userid and user.id=#{id}
-		
+		SELECT
+		u.id,
+		u.userName,
+		u.userAge,
+		u.userAddress
+		from o_myuser u 
+		WHERE u.id=#{id}
 	</select>
+	
+	<select id="getArticles" parameterType="int" resultMap="resultListArticle">
+		SELECT
+			t.aid,
+			t.userid,
+			t.title,
+			t.content
+		from article t 
+		WHERE t.userid=#{id}
+	</select>
+
+	<!-- <select id="getUserArticles3" parameterType="int"
+		resultMap="resultUserArticleList2">
+		SELECT
+		u.id,
+		u.userName,
+		u.userAge,
+		u.userAddress,
+		a.aid,
+		a.userid,
+		a.title,
+		a.content
+		from article a,o_myuser u WHERE a.userid=u.id
+	</select>
+
+	<select id="getUserArticles2" parameterType="int"
+		resultMap="resultUserArticleList2" resultType="java.util.List">
+		select
+		u.id,u.userName,u.userAddress,u.userAge,article.aid
+		aid,article.title,article.content from o_myuser u,article
+		where
+		u.id=article.userid and u.id=#{id}
+	</select> -->
 
 	<select id="selectUserByID" parameterType="int" resultType="User">
 		select * from `o_myuser` where id = #{id}
@@ -46,7 +110,7 @@
 	<insert id="addUser" parameterType="User" useGeneratedKeys="true"
 		keyProperty="id">
 		INSERT INTO o_myuser (id, userName, userAge, userAddress)
-		VALUES ( #{id}, #{userName}, #{userAge}, #{userAddress})
+		VALUES ( #{id}, #{userName}, #{userAge,jdbcType=VARCHAR}, #{userAddress})
 	</insert>
 
 	<update id="updateUser" parameterType="User">
