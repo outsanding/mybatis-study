@@ -1,0 +1,283 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.cn.hnust.IDao.UserMapper" >
+  <resultMap id="BaseResultMap" type="com.cn.hnust.domain.User" >
+    <id column="u_id" property="uId" jdbcType="INTEGER" />
+    <result column="username" property="username" jdbcType="VARCHAR" />
+    <result column="password" property="password" jdbcType="VARCHAR" />
+    <result column="email" property="email" jdbcType="VARCHAR" />
+    <result column="name" property="name" jdbcType="VARCHAR" />
+    <result column="sex" property="sex" jdbcType="VARCHAR" />
+    <result column="birthday" property="birthday" jdbcType="VARCHAR" />
+    <result column="address" property="address" jdbcType="VARCHAR" />
+    <result column="tel" property="tel" jdbcType="VARCHAR" />
+    <result column="qq" property="qq" jdbcType="VARCHAR" />
+    <result column="image" property="image" jdbcType="VARCHAR" />
+    <result column="sfjh" property="sfjh" jdbcType="VARCHAR" />
+    <result column="sfzx" property="sfzx" jdbcType="VARCHAR" />
+    <result column="sfhf" property="sfhf" jdbcType="VARCHAR" />
+    <result column="sfpl" property="sfpl" jdbcType="VARCHAR" />
+    <result column="sffx" property="sffx" jdbcType="VARCHAR" />
+    <result column="multipolygon" property="multipolygon" jdbcType="OTHER" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.cn.hnust.domain.UserWithBLOBs" extends="BaseResultMap" >
+    <result column="desc" property="desc" jdbcType="LONGVARCHAR" />
+    <result column="blob" property="blob" jdbcType="LONGVARBINARY" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    u_id, username, password, email, name, sex, birthday, address, tel, qq, image, sfjh, 
+    sfzx, sfhf, sfpl, sffx, multipolygon
+  </sql>
+  <sql id="Blob_Column_List" >
+    desc, blob
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from user_info_t
+    where u_id = #{uId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from user_info_t
+    where u_id = #{uId,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.cn.hnust.domain.UserWithBLOBs" >
+    insert into user_info_t (u_id, username, password, 
+      email, name, sex, birthday, 
+      address, tel, qq, image, 
+      sfjh, sfzx, sfhf, sfpl, 
+      sffx, multipolygon, desc, 
+      blob)
+    values (#{uId,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{name,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{birthday,jdbcType=VARCHAR}, 
+      #{address,jdbcType=VARCHAR}, #{tel,jdbcType=VARCHAR}, #{qq,jdbcType=VARCHAR}, #{image,jdbcType=VARCHAR}, 
+      #{sfjh,jdbcType=VARCHAR}, #{sfzx,jdbcType=VARCHAR}, #{sfhf,jdbcType=VARCHAR}, #{sfpl,jdbcType=VARCHAR}, 
+      #{sffx,jdbcType=VARCHAR}, #{multipolygon,jdbcType=OTHER}, #{desc,jdbcType=LONGVARCHAR}, 
+      #{blob,jdbcType=LONGVARBINARY})
+  </insert>
+  <insert id="insertSelective" parameterType="com.cn.hnust.domain.UserWithBLOBs" >
+    insert into user_info_t
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="uId != null" >
+        u_id,
+      </if>
+      <if test="username != null" >
+        username,
+      </if>
+      <if test="password != null" >
+        password,
+      </if>
+      <if test="email != null" >
+        email,
+      </if>
+      <if test="name != null" >
+        name,
+      </if>
+      <if test="sex != null" >
+        sex,
+      </if>
+      <if test="birthday != null" >
+        birthday,
+      </if>
+      <if test="address != null" >
+        address,
+      </if>
+      <if test="tel != null" >
+        tel,
+      </if>
+      <if test="qq != null" >
+        qq,
+      </if>
+      <if test="image != null" >
+        image,
+      </if>
+      <if test="sfjh != null" >
+        sfjh,
+      </if>
+      <if test="sfzx != null" >
+        sfzx,
+      </if>
+      <if test="sfhf != null" >
+        sfhf,
+      </if>
+      <if test="sfpl != null" >
+        sfpl,
+      </if>
+      <if test="sffx != null" >
+        sffx,
+      </if>
+      <if test="multipolygon != null" >
+        multipolygon,
+      </if>
+      <if test="desc != null" >
+        desc,
+      </if>
+      <if test="blob != null" >
+        blob,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="uId != null" >
+        #{uId,jdbcType=INTEGER},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="sfjh != null" >
+        #{sfjh,jdbcType=VARCHAR},
+      </if>
+      <if test="sfzx != null" >
+        #{sfzx,jdbcType=VARCHAR},
+      </if>
+      <if test="sfhf != null" >
+        #{sfhf,jdbcType=VARCHAR},
+      </if>
+      <if test="sfpl != null" >
+        #{sfpl,jdbcType=VARCHAR},
+      </if>
+      <if test="sffx != null" >
+        #{sffx,jdbcType=VARCHAR},
+      </if>
+      <if test="multipolygon != null" >
+        #{multipolygon,jdbcType=OTHER},
+      </if>
+      <if test="desc != null" >
+        #{desc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="blob != null" >
+        #{blob,jdbcType=LONGVARBINARY},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.cn.hnust.domain.UserWithBLOBs" >
+    update user_info_t
+    <set >
+      <if test="username != null" >
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null" >
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null" >
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="name != null" >
+        name = #{name,jdbcType=VARCHAR},
+      </if>
+      <if test="sex != null" >
+        sex = #{sex,jdbcType=VARCHAR},
+      </if>
+      <if test="birthday != null" >
+        birthday = #{birthday,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null" >
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="tel != null" >
+        tel = #{tel,jdbcType=VARCHAR},
+      </if>
+      <if test="qq != null" >
+        qq = #{qq,jdbcType=VARCHAR},
+      </if>
+      <if test="image != null" >
+        image = #{image,jdbcType=VARCHAR},
+      </if>
+      <if test="sfjh != null" >
+        sfjh = #{sfjh,jdbcType=VARCHAR},
+      </if>
+      <if test="sfzx != null" >
+        sfzx = #{sfzx,jdbcType=VARCHAR},
+      </if>
+      <if test="sfhf != null" >
+        sfhf = #{sfhf,jdbcType=VARCHAR},
+      </if>
+      <if test="sfpl != null" >
+        sfpl = #{sfpl,jdbcType=VARCHAR},
+      </if>
+      <if test="sffx != null" >
+        sffx = #{sffx,jdbcType=VARCHAR},
+      </if>
+      <if test="multipolygon != null" >
+        multipolygon = #{multipolygon,jdbcType=OTHER},
+      </if>
+      <if test="desc != null" >
+        desc = #{desc,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="blob != null" >
+        blob = #{blob,jdbcType=LONGVARBINARY},
+      </if>
+    </set>
+    where u_id = #{uId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.cn.hnust.domain.UserWithBLOBs" >
+    update user_info_t
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR},
+      sfjh = #{sfjh,jdbcType=VARCHAR},
+      sfzx = #{sfzx,jdbcType=VARCHAR},
+      sfhf = #{sfhf,jdbcType=VARCHAR},
+      sfpl = #{sfpl,jdbcType=VARCHAR},
+      sffx = #{sffx,jdbcType=VARCHAR},
+      multipolygon = #{multipolygon,jdbcType=OTHER},
+      desc = #{desc,jdbcType=LONGVARCHAR},
+      blob = #{blob,jdbcType=LONGVARBINARY}
+    where u_id = #{uId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.cn.hnust.domain.User" >
+    update user_info_t
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      name = #{name,jdbcType=VARCHAR},
+      sex = #{sex,jdbcType=VARCHAR},
+      birthday = #{birthday,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      tel = #{tel,jdbcType=VARCHAR},
+      qq = #{qq,jdbcType=VARCHAR},
+      image = #{image,jdbcType=VARCHAR},
+      sfjh = #{sfjh,jdbcType=VARCHAR},
+      sfzx = #{sfzx,jdbcType=VARCHAR},
+      sfhf = #{sfhf,jdbcType=VARCHAR},
+      sfpl = #{sfpl,jdbcType=VARCHAR},
+      sffx = #{sffx,jdbcType=VARCHAR},
+      multipolygon = #{multipolygon,jdbcType=OTHER}
+    where u_id = #{uId,jdbcType=INTEGER}
+  </update>
+</mapper>
