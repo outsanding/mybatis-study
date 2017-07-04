@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+
+    <!--获取数据库配置文件-->
+    <context:property-placeholder location="classpath:config/jdbc.properties"/>
+
+    <!-- 配置jdbc.properties的路径 -->
+    <bean id="propertyConfigurer"
+          class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
+        <property name="locations">
+            <list>
+                <value>classpath:config/jdbc.properties</value>
+            </list>
+        </property>
+    </bean>
+
+    <!-- 配置dbcp -->
+    <!-- <bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource"
+        destroy-method="close">
+        <property name="driverClassName" value="${jdbc.driverClassName}" />
+        <property name="url" value="${jdbc.url}" />
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}"/>
+        <property name="maxActive" value="30" />
+        <property name="maxIdle" value="10" />
+        <property name="maxWait" value="1000" />
+        <property name="defaultAutoCommit" value="true" /> </bean> -->
+
+    <!-- 配置c3p0 -->
+    <!-- <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource"
+        destroy-method="close">
+        <property name="driverClass" value="${jdbc.driverClassName}" />
+        <property name="jdbcUrl" value="${jdbc.url}" />
+        <property name="user" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}" />
+
+        <property name="minPoolSize" value="10" />
+        <property name="maxPoolSize" value="100" />
+        <property name="maxIdleTime" value="1800" />
+        <property name="acquireIncrement" value="3" />
+        <property name="maxStatements" value="1000" />
+        <property name="initialPoolSize" value="10" />
+        <property name="idleConnectionTestPeriod" value="60" />
+        <property name="acquireRetryAttempts" value="30" />
+        <property name="breakAfterAcquireFailure" value="true" />
+        <property name="testConnectionOnCheckout" value="false" />
+    </bean>-->
+
+    <!--设置数据源c3p0 原版
+    <bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource" destroy-method="close">
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="user" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
+        <property name="maxPoolSize" value="50"/>
+        <property name="minPoolSize" value="2"/>
+        <property name="maxIdleTime" value="60"/>
+    </bean>
+-->
+
+    <!-- 配置bonecp-->
+    <bean id="dataSource" class="com.jolbox.bonecp.BoneCPDataSource"
+          destroy-method="close">
+        <property name="driverClass" value="${jdbc.driver}"/>
+        <property name="jdbcUrl" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}" />
+        <property name="password" value="${jdbc.password}"/>
+
+        <property name="idleConnectionTestPeriod" value="60"/>
+        <property name="idleMaxAge" value="240"/>
+        <property name="maxConnectionsPerPartition" value="30"/>
+        <property name="minConnectionsPerPartition" value="10"/>
+        <property name="partitionCount" value="3"/>
+        <property name="acquireIncrement" value="5"/>
+        <property name="statementsCacheSize" value="100"/>
+        <property name="releaseHelperThreads" value="3"/>
+    </bean>
+
+<!--
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+    -->
+
+    <!--sqlsessionFactory bean-->
+    <bean id="sqlSession" class="org.mybatis.spring.SqlSessionFactoryBean">
+        <property name="configLocation" value="classpath:config/mybatis/SqlMapConfig.xml"/>
+        <property name="dataSource" ref="dataSource"/>
+    </bean>
+
+    <!--自动扫描mapper接口，并注入sqlsession-->
+    <bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+        <property name="basePackage" value="com.elin4it.ssm.mapper"/>
+        <property name="sqlSessionFactoryBeanName" value="sqlSession"/>
+    </bean>
+
+</beans>

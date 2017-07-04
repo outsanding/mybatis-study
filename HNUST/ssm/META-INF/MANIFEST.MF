@@ -1,0 +1,14 @@
+Manifest-Version: 1.0
+Class-Path: commons-pool-1.5.4.jar slf4j-api-1.7.2.jar mchange-commons
+ -java-0.2.10.jar spring-context-4.1.1.RELEASE.jar spring-test-4.1.1.R
+ ELEASE.jar spring-tx-4.1.1.RELEASE.jar mysql-connector-java-5.1.6.jar
+  aopalliance-1.0.jar spring-context-support-4.1.1.RELEASE.jar aspectj
+ rt-1.8.6.jar spring-core-4.1.1.RELEASE.jar aspectjweaver-1.8.6.jar sp
+ ring-oxm-4.1.1.RELEASE.jar mybatis-spring-1.2.3.jar jstl-1.2.jar spri
+ ng-webmvc-4.1.1.RELEASE.jar servlet-api-2.5.jar spring-jdbc-4.1.1.REL
+ EASE.jar bonecp-0.8.0.RELEASE.jar spring-expression-4.1.1.RELEASE.jar
+  commons-dbcp-1.4.jar spring-aop-4.1.1.RELEASE.jar spring-web-4.1.1.R
+ ELEASE.jar mybatis-3.3.0.jar c3p0-0.9.5.1.jar commons-logging-1.1.3.j
+ ar spring-beans-4.1.1.RELEASE.jar guava-15.0.jar
+Main-Class: main.SsmMain
+
